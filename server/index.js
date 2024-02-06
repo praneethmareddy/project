@@ -10,7 +10,7 @@ const serviceRoute = require("./routes/service-router.js");
 const adminRoute = require("./routes/admin-router.js");
 const cors = require("cors");
 
-// to get the json data in the express app.
+// to get the json data in express app.
 const corsOptions = {
   origin: "http://localhost:5173",
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
@@ -39,9 +39,4 @@ connectDb().then(() => {
     // Vercel will call this function when the serverless function is triggered
     await app(req, res);
   };
-
-  // Start the Express server
-  app.listen(PORT, () => {
-    console.log(`server is running at port: ${PORT}`);
-  });
 });
