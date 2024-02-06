@@ -1,4 +1,4 @@
-const paymentRoute =require("./routes/paymentRoutes.js");
+const paymentRoute = require("./routes/paymentRoutes.js");
 require("dotenv").config();
 const express = require("express");
 const app = express();
@@ -6,11 +6,11 @@ const router = require("./routes/auth-route.js");
 const connectDb = require("./utils/db.js");
 const errorMiddleware = require("./middlewares/error-middleware.js");
 const contactRoute = require("./routes/contact-route.js");
-const serviceRoute=require("./routes/service-router.js");
+const serviceRoute = require("./routes/service-router.js");
 const adminRoute = require("./routes/admin-router.js");
 const cors = require("cors");
 
-// to get the json data in express app.
+// to get the json data in the express app.
 const corsOptions = {
   origin: "http://localhost:5173",
   methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
@@ -32,9 +32,15 @@ app.get("/api/getkey", (req, res) =>
 );
 app.use("/api/admin", adminRoute);
 
-
 const PORT = 5000;
 connectDb().then(() => {
+  // Export a handler function
+  module.exports = async (req, res) => {
+    // Vercel will call this function when the serverless function is triggered
+    await app(req, res);
+  };
+
+  // Start the Express server
   app.listen(PORT, () => {
     console.log(`server is running at port: ${PORT}`);
   });
